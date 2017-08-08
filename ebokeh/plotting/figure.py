@@ -53,8 +53,8 @@ def glyph_wrapper(name):
                     fn(*args_, **kwargs_)
             elif kwargs.get('source') is not None:
                 x, y = args[:2]
-                x = x.split(',') if isinstance(x, str) else list(x)
-                y = y.split(',') if isinstance(y, str) else list(y)
+                x = list(x) if isinstance(x, (list, tuple)) else x.split(',')
+                y = list(y) if isinstance(y, (list, tuple)) else y.split(',')
                 if len(x) == 1 and len(y) >= 1:
                     x_str = x[0]
                     for y_str in y:

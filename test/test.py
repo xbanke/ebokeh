@@ -20,13 +20,13 @@ from bokeh.models import HoverTool
 
 def gen_tools():
     hover = HoverTool(tooltips=[
-        ('index', '$index'),
-        ('date', "@idx{%F}"),
-        ('value', '$y'),
+        ("index", "$index"),
+        ("date", "@idx{%F}"),
+        ("value", "$y"),
     ],
 
         formatters={
-            'idx': 'datetime',
+            "idx": "datetime",
         },
 
         # mode='vline'
@@ -63,27 +63,27 @@ def test_df():
 def test_src():
     df = pd.DataFrame(np.random.randn(100, 5), index=pd.date_range('20140101', periods=100),
                       columns=list('ABCDE')).cumsum()
-    source = {k: v.values for k, v in df.items()}
-    source['idx'] = df.index
-    source = ColumnDataSource(source)
+    data = {k: df[k].values for k in df.columns}
+    data["idx"] = df.index
+    source = ColumnDataSource(data=data)
     legend = {k: k.lower() for k in df}  # required
-    color = {'A': 'firebrick', 'B': 'blue', 'C': 'navy', 'D': 'green', 'E': 'black'}
+    color = {"A": 'firebrick', 'B': 'blue', 'C': 'navy', 'D': 'green', 'E': 'black'}
     width, height = 500, 300
 
     p1 = figure(title='Test Source for line', width=width, height=height, x_axis_type='datetime', tools=gen_tools())
-    p1.line('idx', 'A,B,C', color=color, source=source, legend=legend)
+    p1.line("idx", 'A,B,C', color=color, source=source, legend=legend)
 
     p2 = figure(title='Test Source for circle', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())
-    p2.circle('idx', 'A,C,E', color=color, legend=legend, source=source)
+    p2.circle("idx", 'A,C,E', color=color, legend=legend, source=source)
 
     p3 = figure(title='Test Source for diamond', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())
-    p3.diamond('idx', ['A', 'C', 'B'], color=color, legend=legend, source=source)
+    p3.diamond("idx", 'A,C,B', color=color, legend=legend, source=source)
 
     p4 = figure(title='Test Source for vbar', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())
-    p4.vbar('idx', 'A,B,D', width=0.5, color=color, legend=legend, source=source)
+    p4.vbar("idx", 'A,B,D', width=0.5, color=color, legend=legend, source=source)
 
     return [[p1, p2], [p3, p4]]
 
