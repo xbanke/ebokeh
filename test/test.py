@@ -43,11 +43,11 @@ def test_df():
     width, height = 500, 300
 
     p1 = figure(title='Test DataFrame for line', width=width, height=height, x_axis_type='datetime', tools=tools)
-    p1.line(df, color=color)
+    p1.plot(df, color=color)
 
     p2 = figure(title='Test DataFrame for circle', width=width, height=height, x_axis_type='datetime',
                 x_range=p1.x_range, tools=tools)
-    p2.circle(df, color=color)
+    p2.plot(df, color=color, glyph='circle')
 
     p3 = figure(title='Test DataFrame for circle', width=width, height=height, x_axis_type='datetime',
                 x_range=p1.x_range, tools=tools)
@@ -71,11 +71,11 @@ def test_src():
     width, height = 500, 300
 
     p1 = figure(title='Test Source for line', width=width, height=height, x_axis_type='datetime', tools=gen_tools())
-    p1.line("idx", 'A,B,C', color=color, source=source, legend=legend)
+    p1.plot("idx", 'A,B,C', color=color, source=source, legend=legend)
 
     p2 = figure(title='Test Source for circle', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())
-    p2.circle("idx", 'A,C,E', color=color, legend=legend, source=source)
+    p2.plot("idx", 'A,C,E', color=color, legend=legend, source=source, glyph='circle')
 
     p3 = figure(title='Test Source for diamond', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())

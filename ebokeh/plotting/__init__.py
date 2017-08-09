@@ -36,6 +36,10 @@ class Figure(_Figure):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
+    def plot(self, *args, **kwargs):
+        glyph = kwargs.pop('glyph', 'line')
+        getattr(self, glyph)(*args, **kwargs)
+
 
 for g in __glyphs__:
     setattr(Figure, g, glyph_wrapper(g)(getattr(Figure, g)))
