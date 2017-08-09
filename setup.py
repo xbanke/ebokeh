@@ -15,10 +15,11 @@ try:
 except ImportError:
     from distutils.core import setup
 
+from ebokeh import __version__
+
 __title__ = 'ebokeh'
 __description__ = 'Enhanced Ebokeh, make charting much easier!'
 __url__ = 'https://github.com/xbanke/ebokeh'
-__version__ = '0.1.1'
 __author__ = 'quantpy'
 __author_email__ = 'quantpy@gmail.com'
 __license__ = 'MIT'
