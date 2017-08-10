@@ -32,8 +32,12 @@ def parser(name, x, y, legend, args1, kwargs):
         else:
             kwargs_[k] = v
 
-    if kwargs_.get('legend') is None:
+    if 'legend' not in kwargs_:
         kwargs_['legend'] = legend
+
+    if 'source' in kwargs_ and kwargs_.get('legend') is not None:
+        if kwargs_['legend'] == legend:
+            kwargs_['legend'] = '-' + legend
 
     return args_, kwargs_
 
@@ -53,8 +57,15 @@ def glyph_wrapper(name):
                     fn(*args_, **kwargs_)
             elif kwargs.get('source') is not None:
                 x, y = args[:2]
-                x = list(x) if isinstance(x, (list, tuple)) else x.split(',')
-                y = list(y) if isinstance(y, (list, tuple)) else y.split(',')
+                try:
+                    x = x.replace(',', ' ').split()
+                except AttributeError:
+                    x = list(x)
+                try:
+                    y = y.replace(',', ' ').split()
+                except AttributeError:
+                    y = list(y)
+
                 if len(x) == 1 and len(y) >= 1:
                     x_str = x[0]
                     for y_str in y:

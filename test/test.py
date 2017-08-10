@@ -66,7 +66,7 @@ def test_src():
     data = {k: df[k].values for k in df.columns}
     data["idx"] = df.index
     source = ColumnDataSource(data=data)
-    legend = {k: k.lower() for k in df}  # required
+    legend = {k: k for k in df}  # required
     color = {"A": 'firebrick', 'B': 'blue', 'C': 'navy', 'D': 'green', 'E': 'black'}
     width, height = 500, 300
 
@@ -75,7 +75,7 @@ def test_src():
 
     p2 = figure(title='Test Source for circle', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())
-    p2.plot("idx", 'A,C,E', color=color, legend=legend, source=source, glyph='circle')
+    p2.plot("idx", 'A,C,E', color=color, legend=None, source=source, glyph='circle')
 
     p3 = figure(title='Test Source for diamond', width=width, height=height, x_axis_type='datetime', x_range=p1.x_range,
                 tools=gen_tools())
